@@ -3,7 +3,6 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const docGiaModel = require("../models/docgia.model");
 const trangThaiDocGiaModel = require("../models/trangthaidocgia.model");
 
-// ... serializeUser và deserializeUser có thể giữ nguyên hoặc không cần thiết nếu bạn chỉ dùng token
 require("dotenv").config();
 passport.use(
   new GoogleStrategy(
