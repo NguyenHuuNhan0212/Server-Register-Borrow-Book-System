@@ -13,7 +13,7 @@ const trangThaiDocGiaRoute = require("./trangthaidocgia.route");
 const tacGiaRoute = require("./tacgia.route");
 const authRoute = require("./auth.route");
 const uploadRoute = require("./upload.route");
-const chatbotRoute = require("./chatbot.route");
+const bookFavoriteRoute = require("./bookFavorite.route");
 // Định tuyến tất cả ở đây
 router.use("/publishers", nhaXuatBanRoute);
 router.use("/categorys", loaiSachRoute);
@@ -27,6 +27,5 @@ router.use("/status-reader", trangThaiDocGiaRoute);
 router.use("/authors", tacGiaRoute);
 router.use("/auth", authRoute);
 router.use("/upload", uploadRoute);
-router.use("/chatbot", chatbotRoute);
-
+router.use("/books-favorite", bookFavoriteRoute);
 module.exports = router;
