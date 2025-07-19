@@ -21,7 +21,7 @@ module.exports = class SachService {
       MaLoai: data.MaLoai,
       NamXuatBan: data.NamXuatBan,
       MoTa: data.MoTa,
-      image: data.image,
+      image: Array.isArray(data.image) ? data.image : [data.image],
     });
 
     await newSach.save();
@@ -167,6 +167,9 @@ module.exports = class SachService {
       return {
         message: "Tên sách đã tồn tại.",
       };
+    }
+    if (data.image && !Array.isArray(data.image)) {
+      data.image = [data.image];
     }
     const updateBook = await sachModel.findOneAndUpdate({ MaSach }, data, {
       new: true,

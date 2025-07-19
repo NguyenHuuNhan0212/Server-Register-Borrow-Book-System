@@ -22,7 +22,7 @@ const sachSchema = new mongoose.Schema(
         required: true,
       },
     ],
-    image: { type: String },
+    image: [{ type: String }],
   },
   {
     timestamps: true,
