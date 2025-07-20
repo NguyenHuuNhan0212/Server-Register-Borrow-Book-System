@@ -23,6 +23,18 @@ module.exports.addBookFavorite = async (req, res, next) => {
     return res.status(200).json(result);
   } catch (err) {
     console.log(err);
-    return next(new ApiError(500, "Lỗi khi thêm sách" + err));
+    return next(new ApiError(500, "Lỗi khi thêm sách yêu thích" + err));
+  }
+};
+module.exports.deleteBookFavorite = async (req, res, next) => {
+  try {
+    const MaDocGiaId = req.user._id;
+    const MaSachId = req.params?.MaSachId;
+    const bookFavorite = new BookFavorite();
+    const result = await bookFavorite.deleteBookFavorite(MaDocGiaId, MaSachId);
+    return res.status(200).json(result);
+  } catch (err) {
+    console.log(err);
+    return next(new ApiError(500, "Lỗi khi xóa sách yêu thích" + err));
   }
 };

@@ -5,5 +5,10 @@ const { verifyTokenUser } = require("../middlewares/verifyToken");
 
 router
   .get("/", verifyTokenUser, bookFavoriteController.getAll)
-  .post("/:MaSachId", verifyTokenUser, bookFavoriteController.addBookFavorite);
+  .post("/:MaSachId", verifyTokenUser, bookFavoriteController.addBookFavorite)
+  .delete(
+    "/:MaSachId",
+    verifyTokenUser,
+    bookFavoriteController.deleteBookFavorite
+  );
 module.exports = router;

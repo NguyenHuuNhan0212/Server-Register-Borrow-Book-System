@@ -41,6 +41,12 @@ module.exports = class BookFavorite {
       MaDocGia: MaDocGiaId,
       MaSach: MaSachId,
     });
+    const sach = await sachModel.findById(MaSachId);
+    if (!sach) {
+      return {
+        message: "Không tìm thấy sách.",
+      };
+    }
     if (checkBookFavorite) {
       return {
         message: "Sách đã nằm trong danh sách yêu thích.",
@@ -55,6 +61,32 @@ module.exports = class BookFavorite {
         bookFavorite,
         message: "Thêm vào yêu thích thành công.",
       };
+    }
+  }
+  async deleteBookFavorite(MaDocGiaId, MaSachId) {
+    const docGia = await docGiaModel.findById(MaDocGiaId);
+    if (!docGia) {
+      return {
+        message: "Không tìm thấy độc giả.",
+      };
+    } else {
+      const checkBookFavorite = await bookFavoriteModel.findOne({
+        MaDocGia: MaDocGiaId,
+        MaSach: MaSachId,
+      });
+      if (!checkBookFavorite) {
+        return {
+          message: "Không tìm thấy.",
+        };
+      } else {
+        const deletedBookFavorite = await bookFavoriteModel.findOneAndDelete({
+          MaDocGia: MaDocGiaId,
+          MaSach: MaSachId,
+        });
+        return {
+          message: "Xóa sách yêu thích thành công.",
+        };
+      }
     }
   }
 };
