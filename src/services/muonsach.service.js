@@ -76,6 +76,20 @@ module.exports = class MuonSachService {
         message: `Bạn đã đăng ký mượn sách hoặc đang mượn ${soLuongDangMuon} quyển sách. Đã đạt giới hạn cho phép. Vui lòng kiểm tra lịch sử mượn.`,
       };
     }
+    const borrows = await muonSachModel.find({
+      MaTrangThai: maTrangThai,
+    });
+    if (borrows.length > 0) {
+      const check = borrows.some(
+        (borrow) => new Date(borrow.NgayTra) < new Date()
+      );
+      if (check) {
+        return {
+          message:
+            "Bạn đang giữ sách quá hạn không được phép đăng ký mượn. Vui lòng đến thư viện trả sách để được mượn tiếp tục.",
+        };
+      }
+    }
     //Tạo phiếu mượn
     const newMuonSach = await muonSachModel.create({
       MaDocGia,
