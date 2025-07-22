@@ -77,8 +77,10 @@ module.exports = class MuonSachService {
       };
     }
     const borrows = await muonSachModel.find({
+      MaDocGia: MaDocGia,
       MaTrangThai: maTrangThai,
     });
+    console.log(borrows);
     if (borrows.length > 0) {
       const check = borrows.some(
         (borrow) => new Date(borrow.NgayTra) < new Date()
