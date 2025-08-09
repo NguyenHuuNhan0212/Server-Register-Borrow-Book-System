@@ -90,7 +90,7 @@ module.exports = class DocGiaService {
     if (reader && reader.MaTT?.TenTT !== "active") {
       return {
         message:
-          "Tài khoản của bạn bị khóa do một số lý do, bạn vui lòng liên hệ thư viên để giải quyết.",
+          "Tài khoản của bạn bị khóa do một số lý do, bạn vui lòng liên hệ thư viện để giải quyết.",
       };
     }
     if (!reader) {
@@ -158,7 +158,7 @@ module.exports = class DocGiaService {
         MaDocGia: id,
         MaTrangThai: trangThaiDaLay._id,
       });
-      console.log(accountborrowing);
+      // console.log(accountborrowing);
       if (accountborrowing.length > 0) {
         return {
           message:

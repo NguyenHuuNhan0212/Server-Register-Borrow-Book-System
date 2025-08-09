@@ -35,7 +35,7 @@ app.use((err, req, res, next) => {
 setInterval(async () => {
   const result = await new MuonSachService().deleteBorrowBookPendingOneDay();
 }, 60 * 60 * 1000);
-cron.schedule("26 12 * * *", async () => {
+cron.schedule("26 15 * * *", async () => {
   const result = await new docGiaService().blockReaderLateTimeFiveDays();
   console.log(`[CRON] ${new Date().toLocaleString()} - ${result.message}`);
 });

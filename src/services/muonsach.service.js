@@ -4,6 +4,7 @@ const sachModel = require("../models/sach.model");
 const trangThaiModel = require("../models/trangthaimuon.model");
 const sachCopyModel = require("../models/sachCopy.model");
 const { sendMail } = require("../utils/mailer");
+const { capitalizeWords } = require("../utils/stringUtils");
 require("dotenv").config();
 
 module.exports = class MuonSachService {
@@ -99,8 +100,10 @@ module.exports = class MuonSachService {
       ThoiGianChoLay: new Date(),
     });
     const html = `
-  <h3>Xin chào ${docGia.HoTen},</h3>
-  <p>Bạn đã đăng ký mượn sách "${sach.TenSach}". Vui lòng đến lấy trong 24 giờ.</p>`;
+  <h3>Xin chào ${capitalizeWords(docGia.HoTen)},</h3>
+  <p>Bạn đã đăng ký mượn sách <b>"${capitalizeWords(
+    sach.TenSach
+  )}"</b>. Vui lòng đến lấy trong <span style="color: red">24 giờ</span>.</p>`;
     sendMail(docGia.Email, "Thông báo đăng ký mượn sách", html);
     await newMuonSach.populate([
       {
@@ -409,8 +412,8 @@ module.exports = class MuonSachService {
 
       const html = `
         <h3>Xin chào ${muon.MaDocGia.HoTen},</h3>
-        <p>Bạn đã mượn sách "<strong>${muon.MaSachCopy.MaSach.TenSach}</strong>" và đã quá hạn <strong>${overdueDays} ngày</strong>.</p>
-        <p>Vui lòng đến thư viện trả sách để không bị xử lý theo quy định.</p>
+        <p>Bạn đã mượn sách "<strong>${muon.MaSachCopy.MaSach.TenSach}</strong>" và đã quá hạn <strong style="color: red;">${overdueDays} ngày</strong>.</p>
+        <p style="color: red;">Vui lòng đến thư viện trả sách để không bị xử lý theo quy định.</p>
       `;
 
       const docGia = await docGiaModel.findById(muon.MaDocGia);
