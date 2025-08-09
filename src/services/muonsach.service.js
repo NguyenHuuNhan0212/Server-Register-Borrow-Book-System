@@ -14,7 +14,6 @@ module.exports = class MuonSachService {
     return trangThai?._id;
   }
   async add({ MaDocGia, MaSachCopy }) {
-    // các mã hiện tại là các id
     // 1. Kiểm tra độc giả
     const docGia = await docGiaModel.findById(MaDocGia);
     if (!docGia) return { message: "Độc giả không tồn tại." };
