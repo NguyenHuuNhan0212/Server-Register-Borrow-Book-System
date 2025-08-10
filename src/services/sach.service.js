@@ -1,6 +1,7 @@
 const sachModel = require("../models/sach.model");
 const muonSachModel = require("../models/theodoimuonsach.model");
 const sachCopyModel = require("../models/sachCopy.model");
+const trangThaiSachModel = require("../models/trangthaimuon.model");
 module.exports = class SachService {
   async addBook(data) {
     const tenSachCheck = data.TenSach.trim();
@@ -223,8 +224,12 @@ module.exports = class SachService {
     }
     const sachCopies = await sachCopyModel.find({ MaSach: book._id });
     const copyIds = sachCopies.map((copy) => copy._id);
+    const trangThaiDangLay = await trangThaiSachModel.findOne({
+      TenTrangThai: "đã trả",
+    });
     const checkBorrowBook = await muonSachModel.findOne({
       MaSachCopy: { $in: copyIds },
+      MaTrangThai: { $ne: trangThaiDangLay._id },
     });
 
     if (checkBorrowBook) {
